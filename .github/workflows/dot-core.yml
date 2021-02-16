@@ -24,6 +24,19 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
 
+    - name: Generate Test Coverage Report
+      run: |
+        ls -la
+        mkdir -p BitcoinConverter.Tests/TestResults
+        cd BitcoinConverter.Tests
+        dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+        
+    - name: Publish Test Coverage Report
+      uses: coverallsapp/github-action@v1.1.2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: BitcoinConverter.Tests/TestResults/coverage.info
+
     - name: Upload Artifact
       uses: actions/upload-artifact@v1.0.0
       with:

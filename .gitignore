@@ -363,4 +363,6 @@ FodyWeavers.xsd
 
 # Vagrant
 .vagrant/
+
+# MACOS
 .DS_Store
